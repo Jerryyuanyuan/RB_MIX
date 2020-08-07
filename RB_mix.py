@@ -3,8 +3,14 @@ import random
 
 from pycsp3 import *
 
-k, n, alpha, r, p, l = data
-
+k1, k2, n, alpha, r, p, l1, l2 = data
+k = [k1, k2]
+alpha = float(alpha)
+r = float(r)
+p = float(p)
+l1 = float(l1)
+l2 = float(l2)
+l = [l1, l2]
 m = r * n * math.log(n)  # 随机可重复挑选的约束总数
 d = round(n ** alpha)  # 变量定义域的上限
 m_list = [math.ceil(i * m) for i in l]  # 分组约束
@@ -26,6 +32,6 @@ for i, mi in enumerate(m_list):
 x = VarArray(size=n, dom=range(1, d + 1))
 
 satisfy(
-    [x[con_var[0]], x[con_var[1]]] not in constraint_var_no_support_group[i] for i, con_var in
+    [x[con_var_i] for con_var_i in con_var] not in constraint_var_no_support_group[i] for i, con_var in
     enumerate(constraint_var_sub_group)
 )
